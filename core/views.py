@@ -33,7 +33,7 @@ def default(o):
 
 
 
-@csrf_protect
+@csrf_exempt
 def loginUser(request):
     if not request.user.is_authenticated:
         if request.method == "POST":
