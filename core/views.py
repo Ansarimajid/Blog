@@ -22,7 +22,8 @@ from django.db import IntegrityError
 from taggit.models import Tag
 from django.views.generic import UpdateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_exempt
+
 
 import datetime
 def default(o):
@@ -46,13 +47,13 @@ def loginUser(request):
         return render(request, "login.html")
     return redirect("home")
 
-@csrf_protect
+@csrf_exempt
 def logoutUser(request):
     logout(request)
     messages.info(request, "Logged out of Bloggit")
     return redirect('login')
 
-@csrf_protect
+@csrf_exempt
 def signup(request):
     if request.method == 'POST':
         username = request.POST.get("username")
@@ -74,7 +75,7 @@ def signup(request):
         return redirect('home')
     return render(request, "signup.html")
 
-@csrf_protect
+@csrf_exempt
 def postlist(request):
     if not request.user.is_authenticated:
         return redirect('login')
@@ -92,7 +93,7 @@ def postlist(request):
     # return render(request,'index.html', {"post_list": posts})
     return render(request, "index.html")
 
-@csrf_protect
+@csrf_exempt
 def fetch(request):
     post_list= Paginator(Post.objects.all().order_by('-created_on'),2)
     page=request.POST.get("page")
@@ -120,7 +121,7 @@ def fetch(request):
    
     return JsonResponse({"post_list": json.dumps(post_dic, default = default)})
 
-@csrf_protect
+@csrf_exempt
 def postdetail(request, slug):
     if not request.user.is_authenticated:
         return redirect('login')
@@ -172,6 +173,7 @@ def postdetail(request, slug):
                                    'comments' : comments, 'comment_form' : comment_form})
 
 
+@csrf_exempt
 def Favorites(request, slug):
     if not request.user.is_authenticated:
         return redirect('login')
@@ -190,7 +192,7 @@ def Favorites(request, slug):
     
     return HttpResponse('Success')
 
-
+@csrf_exempt
 def favorites(request):
     user = request.user
     FavPosts,_ = FavouritePost.objects.get_or_create(user=user)
@@ -208,7 +210,7 @@ def search(request):
     params={'post_list':allposts,}
     return render(request,'search.html',params)
 
-
+@csrf_exempt
 class PostLikeToggle(RedirectView):
     def get_redirect_url(self,*args, **kwargs):
         id_ = self.kwargs.get("slug")
@@ -222,6 +224,7 @@ class PostLikeToggle(RedirectView):
                 obj.likes.add(user)
         return url_
 
+@csrf_exempt
 class PostLikeAPIToggle(APIView):
     authentication_classes = [authentication.SessionAuthentication]
     permission_classes = [permissions.IsAuthenticated]
@@ -266,7 +269,7 @@ from django.contrib import messages
 class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'profile.html'
 
-@csrf_protect
+@csrf_exempt
 class ProfileUpdateView(LoginRequiredMixin, TemplateView):
     user_form = UserForm()
     profile_form = ProfileForm()
@@ -298,7 +301,7 @@ class ProfileUpdateView(LoginRequiredMixin, TemplateView):
 
 
 
-
+@csrf_exempt
 class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     fields = ['title', 'content','image','tags']
@@ -309,14 +312,14 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
-
+@csrf_exempt
 def posts_by_tag(request, slug):
     tags = Tag.objects.filter(slug=slug).values_list('name', flat=True)
     posts = Post.objects.filter(tags__name__in=tags)
 
     return render(request, 'postsbytag.html', { 'posts': posts })
 
-
+@csrf_exempt
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['category', 'title', 'content', 'image', 'tags']
