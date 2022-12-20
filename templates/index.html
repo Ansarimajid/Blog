@@ -1,0 +1,51 @@
+{% extends "base.html" %} {% block title %} Bloggit {% endblock title %} 
+{% block content %} {% include "header.html" %} {% include "description.html" %}
+<div class="blogs">
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script>
+  getPosts();
+  function getPosts(page = 1){
+    $.ajax({
+      type: "POST",
+      url: "/fetch",
+      data: {
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        page: page,
+      },
+      success: (data) => {
+        page = JSON.parse(data.post_list);
+        $(".blogs").empty();
+        $(".pagination").remove();
+        for (let post of page.posts){
+          let blog = $("<article></article>").addClass("blog");
+          blog.append($("<h3></h3").addClass("title").text(post.title));
+          blog.append($("<p></p>").addClass("author").text(`${post.author} | ${new Date(post.created_on).toLocaleString()}`));
+          blog.append($("<p></p>").addClass("post").text(`${post.content.slice(0,200)}...`));
+          blog.append($("<a></a>").addClass("button").text("Read More  →").attr("href", `/detail/${post.slug}`));
+          $(".blogs").append(blog);
+        }
+        if (page.has_previous || page.has_next){
+          let nav = $("<nav></nav>").addClass("pagination");
+          let ul = $("<ul></ul>")
+          nav.append(ul);
+          if (page.has_previous){
+            ul.append($("<li></li>").append($("<button></button>").addClass("pagination-btn").attr("id", "prev-btn").text("«")));
+          }
+          ul.append($("<li></li>").addClass("text").text(page.number));
+          if (page.has_next){
+            ul.append($("<li></li>").append($("<button></button>").addClass("pagination-btn").attr("id", "next-btn").text("»")));
+          }
+          $(".blogs").after(nav);
+          $("#next-btn").on("click", function(){
+            getPosts(parseInt($(".text").text()) + 1)
+          })
+          $("#prev-btn").on("click", function(){
+            getPosts(parseInt($(".text").text()) - 1)
+          })
+        }
+      }
+    })
+  }
+</script>
+{% endblock content %}

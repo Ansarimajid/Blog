@@ -1,0 +1,530 @@
+/* css resets */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  position: relative;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  font-family: Poppins, sans-serif;
+  background-color: #effad3;
+}
+
+a {
+  color: #28abb9;
+  text-decoration: none;
+}
+
+div.cred {
+  border: 0.01rem solid #4cf14c;
+  border-radius: 0.8rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2rem;
+  width: 40rem;
+  text-align: center;
+}
+
+div.cred h2 {
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: #2d6187;
+}
+
+div.input {
+  width: 100%;
+  margin-bottom: 2rem;
+  border-bottom: 0.01rem solid rgba(45, 97, 135, 0.384);
+  position: relative;
+}
+
+div.input input {
+  width: inherit;
+  padding: 1rem 1.1rem;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-family: inherit;
+}
+
+input::placeholder {
+  font-family: Poppins, sans-serif;
+  font-size: 1.2rem;
+}
+
+div.input::before {
+  content: "";
+  position: absolute;
+  bottom: -0.01rem;
+  width: 0;
+  height: 0.05rem;
+  background-color: #28abb9;
+  left: 0;
+  transition: width 0.5s ease;
+}
+
+div.input.focusing::before {
+  width: 100%;
+}
+
+div.cred button,
+.button,
+a.button {
+  padding: 1.5rem 4rem;
+  border-radius: 0.8rem;
+  border: none;
+  background-color: #2d6187;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1.4rem;
+  outline: 0;
+}
+
+div.cred button:focus,
+a.button:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.3rem rgba(84, 164, 173, 0.726);
+}
+
+div.cred button:active,
+a.button:active {
+  transform: scale(0.95);
+}
+
+.formfooter {
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  color: #333333;
+}
+
+.formfooter p:last-child {
+  margin-top: 0.5rem;
+}
+
+.formfooter p a {
+  color: #28abb9;
+  text-decoration: none;
+}
+
+@media (max-width: 440px) {
+  div.cred {
+    width: 90%;
+  }
+}
+
+/* authentication messages */
+.success,
+.error,
+.info {
+  width: 100%;
+  position: absolute;
+  top: -1.2rem;
+  left: 0;
+  font-size: 1.3rem;
+  font-weight: 500;
+  padding: 0.6rem 0;
+  text-align: center;
+  animation: comefromtop 0.3s forwards ease, gototop 0.5s forwards ease 2s;
+}
+
+@keyframes comefromtop {
+  100% {
+    top: 0;
+  }
+}
+
+@keyframes gototop {
+  100% {
+    top: -4rem;
+  }
+}
+
+.success {
+  background-color: #218838;
+  color: #ffffff;
+}
+
+.error {
+  background-color: #bd2130;
+  color: #ffffff;
+}
+
+.info {
+  background-color: #525158;
+  color: #ffffff;
+}
+
+/* header */
+
+header {
+  height: 8rem;
+  display: flex;
+  align-items: center;
+  padding: 0 3rem;
+  justify-content: space-between;
+}
+
+header a {
+  text-decoration: none;
+}
+
+header h1 a {
+  font-size: 2.5rem;
+  color: #2d6187;
+}
+
+header nav ul {
+  display: flex;
+  width: 50rem;
+  justify-content: space-between;
+  list-style: none;
+}
+
+header nav ul li a {
+  font-size: 1.7rem;
+  color: #28abb9;
+}
+
+@media (max-width: 1025px) {
+  header {
+    flex-direction: column;
+    height: auto;
+    gap: 2rem;
+    padding: 2rem 0;
+  }
+  header nav {
+    width: 100%;
+  }
+  header nav ul {
+    width: 100%;
+    justify-content: space-evenly;
+  }
+}
+
+/* Search */
+
+.form-control {
+  border-radius: 8px;
+  border-color: #28abb9;
+  border-style: hidden;
+  height: 3.8rem;
+  width: 25rem;
+  padding-left: 2rem;
+  background-color: rgba(40, 170, 185, 0.247);
+}
+
+.form-control:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.3rem rgba(84, 164, 173, 0.726);
+}
+
+/* description - hero section */
+
+.description {
+  padding: 4rem 0;
+  background-color: #28abb9;
+  color: #ffffff;
+  text-align: center;
+}
+
+.description h2 {
+  font-weight: 400;
+  font-size: 2.4rem;
+  margin-bottom: 1rem;
+}
+
+.description h2.fav {
+  margin-bottom: 0;
+}
+
+.description p {
+  font-size: 1.6rem;
+  font-weight: 200;
+}
+
+/* Blogs */
+
+.blog {
+  position: relative;
+  width: calc(100% - 6rem);
+  margin: 3rem auto;
+  padding: 2rem 0;
+}
+
+.blog .title {
+  color: #2d6187;
+  font-weight: 600;
+  font-size: 2.4rem;
+}
+
+.blog .author {
+  margin: 1.5rem 0;
+  font-size: 1.3rem;
+  color: #b144cc;
+  font-weight: 500;
+}
+
+.blog .post {
+  font-size: 1.5rem;
+  line-height: 1.8;
+  color: #333333;
+  font-size: 400;
+  margin-bottom: 1.8rem;
+}
+
+a.button {
+  display: inline-block;
+  text-decoration: none;
+}
+
+/* pagination */
+
+.pagination {
+  width: calc(100% - 6rem);
+  margin: 3rem auto;
+}
+
+.pagination ul {
+  display: flex;
+  list-style: none;
+  width: 12.1rem;
+  margin: auto;
+}
+
+.pagination ul li {
+  font-size: 1.7rem;
+  border: 0.01rem solid #4cf14c;
+  border-right: 0;
+  background-color: #ffffff;
+  font-family: sans-serif;
+  color: #333333;
+}
+
+.pagination ul li.text {
+  padding: 0.8rem 1.6rem;
+}
+
+.pagination ul li button {
+  width: 100%;
+  display: block;
+  height: 100%;
+  padding: 0.8rem 1.6rem;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  outline: 0;
+  color: #28abb9;
+}
+
+.pagination ul li:last-child {
+  border-right: 0.01rem solid #4cf14c;
+  border-radius: 0 0.6rem 0.6rem 0;
+}
+
+.pagination ul li:first-child {
+  border-radius: 0.6rem 0 0 0.6rem;
+}
+
+/* .pagination ul li a {
+  color: #28abb9;
+  font-family: sans-serif;
+  text-decoration: none;
+} */
+
+p.author.detail {
+  position: absolute;
+  top: 1.3rem;
+  right: 0;
+}
+
+a.button-red {
+  background-color: #dc3545;
+}
+
+a.button-green {
+  background-color: #28a745;
+}
+
+.about {
+  padding: 3rem;
+  background-color: #ffffff;
+  height: calc(100vh - 8rem);
+  display: flex;
+  align-items: center;
+}
+
+.about ul {
+  list-style: none;
+}
+
+.about ul li:nth-child(2) {
+  margin: 4.5rem 0;
+}
+
+.about ul li {
+  font-weight: 400;
+  font-family: Poppins, sans-serif;
+  font-size: 1.8rem;
+  line-height: 1.7;
+}
+
+.about ul li:last-child {
+  font-weight: 200;
+  text-align: center;
+}
+
+.imageCollage {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+}
+.imageCollage_text {
+  padding: 20px;
+  background: #e6e6e6;
+  border-radius: 3px;
+  font-size: 1.5rem;
+  width: 300px;
+  margin: 2px;
+}
+.imageCollage img {
+  height: 300px;
+  flex-grow: 1;
+  object-fit: cover;
+  margin: 2px;
+}
+
+.profile-container {
+  padding: 3rem 3rem;
+  border-radius: 2rem;
+  background-color: #ffffff;
+  width: 50%;
+  margin: 5rem auto;
+}
+
+.profile-container .profile {
+  display: grid;
+  width: 200px;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 25% 75%;
+  color: #48556a;
+  font-weight: 500;
+}
+
+.profile-container .profile img {
+  grid-row: 1/3;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  margin-top: 0.7rem;
+  user-select: none;
+}
+
+.title {
+  color: #19212e;
+  font-weight: 600;
+  margin: 3rem 0;
+  font-size: 2.1rem;
+  line-height: 1.3;
+}
+
+.profile-update {
+  margin: 0.5rem auto;
+  color: #333333;
+  font-size: 1.3rem;
+  border: 0.01rem solid #4cf14c;
+  border-radius: 0.8rem;
+  padding: 2rem;
+  width: 40rem;
+  text-align: center;
+}
+
+.profile-update form > div {
+  margin: 2rem 0;
+}
+
+.profile-update form > div input {
+  border: 0;
+  border-bottom: 0.01rem solid #b144cc;
+  padding: 1rem;
+  width: 100%;
+  margin: 1rem 0;
+  background: transparent;
+  outline: 0;
+}
+
+.profile-update form > div label {
+  color: #2d6187;
+}
+
+.profile-update + div {
+  height: 2rem;
+}
+
+#profile_image-clear_id {
+  width: auto;
+}
+
+.content-section {
+  width: 90%;
+  margin: auto;
+  font-size: 1.3rem;
+}
+
+.content-section div {
+  margin-bottom: 3rem;
+}
+
+.content-section div label {
+  font-weight: 500;
+}
+
+.content-section div input,
+.content-section div select,
+.content-section div textarea {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 1rem 2rem;
+  border-radius: 0.8rem;
+  border: 0.1rem solid #28abb9;
+  background: transparent;
+}
+
+.content-section div textarea {
+  resize: vertical;
+  line-height: 1.2;
+}
+
+.content-section div select {
+  padding: 1rem;
+}
+
+.content-section div input:focus,
+.content-section div select:focus,
+.content-section div textarea:focus {
+  box-shadow: 0 0 0 0.3rem rgba(84, 164, 173, 0.726);
+  outline: 0;
+}
+
+.content-section p#hint_id_tags {
+  color: rgba(84, 164, 173, 0.726);
+  margin-top: 0.2rem;
+}
+
+.content-section .button {
+  margin-bottom: 2rem;
+}

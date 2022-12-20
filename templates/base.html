@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:200,400,500,600"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+      crossorigin="anonymous"
+    />
+    <title>{% block title %} {% endblock title %}</title>
+    <link rel="stylesheet" href="{% static "styles.css" %}">
+    <link rel="stylesheet" href="{% static 'font-awesome.css' %}" />
+  </head>
+  <body>
+    {% block content %} {% endblock content %}
+    <div>
+      {% for message in messages %}
+      <p class="{{message.tags}}">{{message}}</p>
+      {% endfor %}
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      const inputs = document.querySelectorAll("div.input input");
+      inputs.forEach((input) => {
+        input.addEventListener("focus", () =>
+          input.parentElement.classList.add("focusing")
+        );
+        input.addEventListener("blur", () =>
+          input.parentElement.classList.remove("focusing")
+        );
+      });
+      function updateText(btn, newCount, verb) {
+        $("#pTest").text(newCount);
+      }
+      $(".like-btn").click(function (e) {
+        e.preventDefault();
+        var this_ = $(this);
+        var likeUrl = this_.attr("data-href");
+        if (likeUrl) {
+          $.ajax({
+            url: likeUrl,
+            method: "GET",
+            data: {},
+            success: function (data) {
+              var newLikes;
+              if (data.liked) {
+                //add one like
+                updateText(this_, data.count, data.verb);
+                $("#hid").removeClass("fa-heart-o").addClass("fa-heart");
+              } else {
+                //remove one like
+                $("#hid").removeClass("fa-heart").addClass("fa-heart-o");
+                updateText(this_, data.count, data.verb);
+              }
+            },
+            error: function (error) {
+              alert("Oops! Error Occurred");
+            },
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
