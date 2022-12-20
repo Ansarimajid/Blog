@@ -22,6 +22,7 @@ from django.db import IntegrityError
 from taggit.models import Tag
 from django.views.generic import UpdateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.decorators.csrf import csrf_protect
 
 import datetime
 def default(o):
@@ -30,7 +31,7 @@ def default(o):
     return str(o)
 
 
-from django.views.decorators.csrf import csrf_protect
+
 @csrf_protect
 def loginUser(request):
     if not request.user.is_authenticated:
@@ -45,14 +46,13 @@ def loginUser(request):
         return render(request, "login.html")
     return redirect("home")
 
-from django.views.decorators.csrf import csrf_protect
 @csrf_protect
 def logoutUser(request):
     logout(request)
     messages.info(request, "Logged out of Bloggit")
     return redirect('login')
 
-
+@csrf_protect
 def signup(request):
     if request.method == 'POST':
         username = request.POST.get("username")
@@ -74,7 +74,7 @@ def signup(request):
         return redirect('home')
     return render(request, "signup.html")
 
-
+@csrf_protect
 def postlist(request):
     if not request.user.is_authenticated:
         return redirect('login')
@@ -92,6 +92,7 @@ def postlist(request):
     # return render(request,'index.html', {"post_list": posts})
     return render(request, "index.html")
 
+@csrf_protect
 def fetch(request):
     post_list= Paginator(Post.objects.all().order_by('-created_on'),2)
     page=request.POST.get("page")
@@ -119,7 +120,6 @@ def fetch(request):
    
     return JsonResponse({"post_list": json.dumps(post_dic, default = default)})
 
-from django.views.decorators.csrf import csrf_protect
 @csrf_protect
 def postdetail(request, slug):
     if not request.user.is_authenticated:
@@ -266,6 +266,7 @@ from django.contrib import messages
 class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'profile.html'
 
+@csrf_protect
 class ProfileUpdateView(LoginRequiredMixin, TemplateView):
     user_form = UserForm()
     profile_form = ProfileForm()
