@@ -29,6 +29,9 @@ def default(o):
         return o.isoformat()
     return str(o)
 
+
+from django.views.decorators.csrf import csrf_protect
+@csrf_protect
 def loginUser(request):
     if not request.user.is_authenticated:
         if request.method == "POST":
@@ -42,7 +45,8 @@ def loginUser(request):
         return render(request, "login.html")
     return redirect("home")
 
-
+from django.views.decorators.csrf import csrf_protect
+@csrf_protect
 def logoutUser(request):
     logout(request)
     messages.info(request, "Logged out of Bloggit")
@@ -115,6 +119,8 @@ def fetch(request):
    
     return JsonResponse({"post_list": json.dumps(post_dic, default = default)})
 
+from django.views.decorators.csrf import csrf_protect
+@csrf_protect
 def postdetail(request, slug):
     if not request.user.is_authenticated:
         return redirect('login')
