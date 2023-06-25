@@ -43,10 +43,6 @@ Contributions to the Django Blog Application are welcome! If you find any issues
 
 Before contributing, make sure to review the project's code of conduct and guidelines for contributors, if any.
 
-## License
-
-The Django Blog Application is released under the [MIT License](https://opensource.org/licenses/MIT). You can find more details in the `LICENSE` file included with the project.
-
 ## Acknowledgements
 
 The Django Blog Application is built using the powerful Django web framework and various open-source libraries. We would like to acknowledge the contributions of the Django community and the developers behind the libraries used in this project. Their hard work and dedication make projects like this possible.
